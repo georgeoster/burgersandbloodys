@@ -1,75 +1,86 @@
 
+<div class="editDeletePositioning confirmDeleteMessage visibilityHidden" [ngClass]="showDeleteConfirm? 'visibilityVisible' : ''">
+  Are you sure you want to delete this?
+  <div class="confirmDialogButtonsContainer">
+    <div class="confirmDialogButtons"  (click)="deleteHandler()" >Delete</div>
+    <div class="confirmDialogButtons" (click)="cancelHandler()" >Cancel</div>
+  </div>
+</div>
+
+<div class="editDeletePositioning editReviewDialog visibilityHidden" [ngClass]="showEditPost? 'visibilityVisible' : ''" >
+  <app-edit-post [review] = "toEdit" ></app-edit-post>
+</div>
+
+<!-- HIDDEN INPUT -->
 <input type="file" name="file" id="file" class="inputfile" class="hiddenInput" #george (change)="upload(george)" />
+
+<!-- CONTAINER-->
 <div class="container"  [ngClass]="reviews.length === 0 ? 'containerNoReviews' : ''" >
-                
-        <div class="picture">
-                
-                <div class="displayNameTop">{{userDisplayName}}</div>
-               
-                <div class="containingDiv" [ngClass]="userImage ? '' : 'hide'"> <img [src]="userImage"> </div>
+  <!-- OVERLAY SCREEN FOR DIALOGS -->
+  <div class="confirmDialog visibilityHidden" [ngClass]="showDeleteConfirm || showEditPost? 'visibilityVisible' : ''">  </div>
 
-                <div class="displayNameBottom">{{userDisplayName}}</div>
-                
-                <label for="file" class="button" [ngClass]="showChangePicture ? '' : 'hide'"> {{userImage ? 'Change' : 'Upload' }} Picture</label>
-             
+  <!--  PICTURE AND CHANGE PICTURE BUTTON -->
+  <div class="picture">
+    <div class="displayNameTop">{{userDisplayName}}</div>
+    <div class="containingDiv" [ngClass]="userImage ? '' : 'hide'"> <img [src]="userImage"> </div>
+    <div class="displayNameBottom">{{userDisplayName}}</div>
+    <label for="file" class="button" [ngClass]="showChangePicture ? '' : 'hide'"> {{userImage ? 'Change' : 'Upload' }} Picture</label>
+  </div>
+
+  <!-- REVIEW -->
+  <div class="reviews" [ngClass]="reviews.length === 0 ? 'noReviews' : ''" >
+    <!-- TITLE -->
+    <div class="title">Ratings</div>
+
+    <!-- LOOP OF REVIEWS-->
+    <div class="review" *ngFor="let review of reviews; let i = index;">
+
+      <!-- PLACE PICTURE AND NAME-->
+      <div class="place" routerLink = "../../place/{{review.placeId}}">
+        <div [style.backgroundImage]="'url('+ review.image1 +')'" class="placeImage"></div>
+        <div class="name">{{review.place}}</div>
+      </div>
+
+      <!-- PLACE STARS, DATE, AND EDIT/DELETE MENU -->
+      <div class="reviewDetails">
+        <div class="starsAndDate">
+          <!-- STARS AND DATE -->
+          <div class="stars"><app-rating [rating]="review.overallRating" ></app-rating> </div>
+          <div class="date">{{review.reviewDate}}</div>
+          <!-- TRIPLE DOT MENU -->
+          <div class="verticalMenuIcon" [ngClass]="showChangePicture ? '' : 'hide'" (click)="showEditDelete(review)">
+              <span class="tooltiptext">edit or delete<br>this rating</span>
+          </div>
+          <!-- EDIT / DELETE MENU -->
+          <div class="editDeleteContainerAnchor">
+            <div class="editDeleteContainer" [ngClass]="review.showEditDelete ? 'show' : ''" >
+              <div (click)="editModeToggle(review,i)"   class="flex editDeleteRow"><img src="../../assets/edit.png"   class="editDeleteIcons"><div style="margin-top: .2em;">Edit</div> </div>
+              <div (click)="openDeleteConfirm(review)"  class="flex editDeleteRow"><img src="../../assets/trash.png"  class="editDeleteIcons"><div style="margin-top: .2em;">Delete</div> </div>
+            </div>
+          </div>
         </div>
-
-        <div class="reviews" [ngClass]="reviews.length === 0 ? 'noReviews' : ''" >
-               
-                <div class="title">Ratings</div>
-               
-                <div class="review" *ngFor="let review of reviews"> 
-                        
-                        <div class="place" routerLink = "../../place/{{review.placeId}}">
-                               
-                                <div [style.backgroundImage]="'url('+ review.image1 +')'" class="placeImage"></div>
-
-                                <div class="name">{{review.place}}</div>
-                        </div>
-                
-                        <div class="reviewDetails">
-                                
-                                <div class="starsAndDate">
-                                        <div class="stars"><app-rating [rating]="review.overallRating" ></app-rating> </div>
-                                        <div class="date">{{review.reviewDate}}</div>
-                                </div>  
-                
-                                <div class="ratings">
-
-                                                {{ review.burger == '' ? '' : 'Burger '+review.burger }}
-                                                {{ review.burger != '' && (review.benny != '' ||
-                                                                           review.bloody !='' ||
-                                                                           review.beers != '' ) ? ' &#183; ' : '' }}
-                        
-                                                {{ review.benny == '' ? '' : 'Benny '+review.benny }}
-                                                {{ review.benny != '' && (review.bloody !='' ||
-                                                                          review.beers != '' ) ? ' &#183; ' : '' }}
-                                                                          
-                                                {{ review.bloody == '' ? '' : 'Bloody '+review.bloody }}
-                                                {{ review.bloody != '' && review.beers != ''  ? ' &#183; ' : '' }}
-                                                
-                                                {{ review.beers == '' ? '' : 'Beers '+review.beers }}
-                                        <!--
-                                        Burger&nbsp;{{review.burger == '' ? '&nbsp;' : review.burger}}&nbsp;&#183;
-                                        Benny&nbsp;{{review.benny   == '' ? '&nbsp;' : review.benny}}&nbsp;&#183;
-                                        Bloody&nbsp;{{review.bloody == '' ? '&nbsp;' : review.bloody}}&nbsp;&#183;
-                                        Beers&nbsp;{{review.beers   == '' ? '&nbsp;' : review.beers}}
-                                -->
-                                </div>
-                
-                                <div class="words">
-                                        {{review.words}}
-                                </div>
-                
-                        </div>
-                             
-                </div>
-
+        <!-- BURGERS, BLOODYS, ETC RATING-->
+        <div class="ratings">
+          <div [ngClass]="review.burger == ''  ? 'hide' : 'show'" >Burger {{review.burger}}</div>
+          <div class="spacer"   [ngClass]="review.burger != '' && (review.benny != '' || review.bloody !='' || review.beers != '' )  ? '' : 'hide'" > &#183; </div>
+          <div [ngClass]="review.benny == ''  ? 'hide' : 'show'" >Benny {{review.benny}}</div>
+          <div class="spacer"   [ngClass]="review.benny != '' && (review.bloody !='' || review.beers != '' ) ? '' : 'hide'" > &#183; </div>
+          <div [ngClass]="review.bloody == ''  ? 'hide' : 'show'" >Bloody {{review.bloody}}</div>
+          <div class="spacer"   [ngClass]="review.bloody != '' && review.beers != ''  ? '' : 'hide'" > &#183; </div>
+          <div [ngClass]="review.beers == ''  ? 'hide' : 'show'" >Beers {{review.beers}}</div>
         </div>
-
+        <!-- RATING WORDS-->
+        <div id="words{{i}}" class="words" [textContent]="review.words"></div>
+      </div>
+    </div>
+  </div>
 </div>
 <div id="map"></div>
 
-
-
-        
+ <!-- SAVE / CANCEL BUTTONS -->
+ <!-- <div [ngClass]="!review.editMode ? '' : 'hide'" >
+    <div class="flex">
+      <div class="cancelSaveButton" (click)="saveHandler(review,i)">Save</div>
+      <div class="cancelSaveButton" (click)="cancelEditHandler(review,i)" >Cancel</div>
+    </div>
+  </div> -->
