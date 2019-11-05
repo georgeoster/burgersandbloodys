@@ -1,14 +1,149 @@
+
+
+.spacer{
+  margin-right: .75em;
+  margin-left:  .75em;
+}
+
+.dropdownContainer{
+  /* min-width: 5em; */
+  border:1px solid var(--textColor);
+  border-radius: 5px;
+  margin-right: .25em;
+  padding: .25em;
+  /* padding-righ?t: .25em; */
+  font-size: .9em;
+  margin-top: .5em;
+    margin-bottom: .25em;
+}
+
+.img {
+  margin-top: -.33em;
+  width:1.26em;
+}
+
+.expandingMenu{
+  height:0px;
+  display: none;
+}
+
+.dropdown{
+  height:5em;
+  border:1px solid var(--textColor);
+}
+
+.visibilityHidden{
+  visibility: hidden;
+}
+
+.visibilityVisible{
+  visibility: visible !important;
+}
+
+.confirmDialog{
+  /* visibility: hidden; */
+  position: absolute;
+  top:0;
+  right:0;
+  height:100%;
+  width:100%;
+  background-color: black;
+  z-index:500;
+  opacity:.85;
+}
+
+.editDeletePositioning{
+  position: fixed;
+  top:25%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.editReviewDialog{
+  width:80%;
+  max-width: 20em;
+  background-color: var(--buttonBackgroundColor);
+  color: var(--textColor);
+  border:2px solid var(--textColor);
+  border-radius: var(--buttonBorderRadius);
+  z-index:501;
+  font-size: 1.25em;
+  text-align: center;
+  padding-top: .5em;
+  padding-bottom: .5em;
+}
+
+.confirmDeleteMessage{
+  /* visibility: hidden; */
+  /* right:10%; */
+  width:80%;
+  max-width: 20em;
+  background-color: #2d3f61;
+  color: var(--textColor);
+  border:2px solid var(--textColor);
+  border-radius: var(--buttonBorderRadius);
+  z-index:501;
+  font-size: 1.25em;
+  text-align: center;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.confirmDialogButtonsContainer{
+  /* visibility: hidden; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: .75em;
+  /* border:1px solid orange; */
+}
+
+.confirmDialogButtons {
+  /* visibility: hidden; */
+  padding: .5em 1em;
+  font-size: 1em;
+  background-color: var(--buttonBackgroundColor);
+  color: var(--textColor);
+  margin-right: .25em;
+  margin-left: .25em;
+
+  /* -webkit-transition:  .25s; /* Safari */
+  /* transition:  .25s; */
+  border:2px solid var(--buttonHoverColor);
+  border-radius: var(--buttonBorderRadius);
+  text-align: center;
+  cursor: pointer;
+}
+.confirmDialogButtons:hover {
+  background-color: var(--buttonHoverColor);
+  transform: scale(1.01);
+  box-shadow: -.25em .5em 1.25em 0em #111111;
+  transition: .5s;
+}
+.confirmDialogButtons:focus {
+  outline:0;
+}
+
+
+
+
+
+
+
+
+
 .container {
     position: absolute;
     top: 7em;
     width:90%;
     max-width: 60em;
     min-width: 45em;
-    
+
     left: 50%;
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
-    
+
     background-color: var(--buttonBackgroundColor);
     display: flex;
     flex-direction: row;
@@ -63,7 +198,7 @@
 
 /* start upload file button*/
 .button {
-    padding:1em;
+    padding: .5em 1em;
     font-size: 1em;
     background-color: var(--buttonBackgroundColor);
     color: var(--textColor);
@@ -78,6 +213,7 @@
     text-align: center;
     margin-bottom: 1em;
     margin-top: .5em;
+    cursor: pointer;
 }
 .button:hover {
     background-color: var(--buttonHoverColor);
@@ -92,7 +228,7 @@
     opacity:0;
 }
 .hide{
-    display: none;
+    display: none !important;
 }
 .noReviews{
     visibility: hidden;
@@ -110,7 +246,7 @@
     padding: 1em;
     width:30em;
     min-width: 30em;
-    
+
 }
 
 .title{
@@ -178,6 +314,9 @@
 .starsAndDate{
     display:flex;
     flex-direction: row;
+    width:100%;
+    position: relative;
+    padding-left: .5em;
 }
 .stars{
     font-size: 1.75em;
@@ -188,6 +327,132 @@
     padding-top: .75em;
     font-size: 1em;
 }
+.verticalMenuIcon{
+  position: absolute;
+  right:-5px;
+  bottom:0px;
+
+  /* margin-top: .25em; */
+  background-image: url('../../assets/verticalMenu2.png');
+  background-repeat: no-repeat;
+  background-size:100%;
+  height:2em;
+  padding-left: 2.5em;
+  padding-top: .5em;
+  font-size: .75em;
+  cursor: pointer;
+}
+/* .verticalMenuIcon:hover{
+  cursor: pointer;
+} */
+
+.tooltiptext {
+  /* visibility: hidden; */
+  white-space: nowrap;
+  background-color: var(--textColor);
+  color:  var(--buttonBackgroundColor);
+  /* text-align: center; */
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: -20%;
+  margin-left: -40px;
+
+  opacity: 0;
+  transition: opacity .25s ease-in;
+}
+.tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 75%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--textColor) transparent transparent transparent;
+}
+.verticalMenuIcon:hover .tooltiptext {
+  /* visibility: visible; */
+  opacity: 100;
+}
+
+.editDeleteContainerAnchor{
+  position: absolute;
+  right:-10px;
+  bottom:0px;
+}
+
+.editDeleteContainer {
+  visibility: hidden;
+
+  white-space: nowrap;
+  border-radius: 3px;
+  background-color: var(--buttonHoverColor);
+  color:  var(--textColor);
+  padding: .33em .2em;
+  position: absolute;
+  z-index: 1;
+
+  cursor: pointer;
+  top: .5em;
+  right: -.1em;
+
+  margin-left: -40px;
+  border:1.25px solid var(--textColor);
+  font-size: 1em;
+  /* box-shadow: Horizontal Offset,  Vertical Offset, Blur, Spread var(--textColor); */
+  /* box-shadow: -.05em .05em .5em .05em var(--textColor); */
+  opacity: 0;
+  transition: opacity .5s ease-in;
+}
+
+.editDeleteContainer::after {
+  content: "";
+  position: absolute;
+  bottom: 94%;
+  left: 85%;
+  margin-left: -5px;
+  /* border-color: transparent transparent var(--buttonHoverColor) transparent; */
+  width:.45em; height:.45em;
+  transform:rotate(45deg);
+  background-color: inherit;
+  border-top: 1.25px solid var(--textColor);
+  border-left: 1.25px solid var(--textColor);
+  border-radius: 1px;
+}
+.show{
+    visibility: visible;
+    opacity: 100;
+}
+.editDeleteRow{
+  padding-right: .66em;
+  padding-left: .66em;
+}
+.editDeleteRow:hover{
+  background-color: #2b3a5c;
+}
+
+.editIcon{
+  background-image: url('../../assets/edit.png');
+  background-repeat: no-repeat;
+  background-size: 20%;
+  background-position: .5em .65em;
+  height:1.5em;
+  padding-left: 1.66em;
+  padding-top: .5em;
+  border:1px solid pink;
+
+}
+.verticalMenuIcon:hover{
+  cursor: pointer;
+}
+
+.editDeleteIcons{
+  height: 1.25em;
+  margin-right: .25em;
+}
 /* end starsAndDate */
 
 .ratings{
@@ -197,14 +462,60 @@
     margin-top: .5em;
     margin-bottom: .25em;
     font-size: .95em;
+    padding-left: .5em;
 }
 
 .words{
-    margin-top: 1em;
+    margin-top: .25em;
+    padding-top: .25em;
+    padding-left: .5em;
+    background: transparent;
+    border:none;
+    resize: none;
+    color:var(--textColor);
+    font-size: .95em;
+    height:100%;
+    width:97%;
+}
+
+.editwords{
+  border-radius: 5px;
+  resize: none;
+  background-color: #273247;
+  color:var(--textColor);
+  border:1px solid var(--textColor);
+  cursor: pointer;
+}
+.words:focus{
+  outline: 0;
 }
 
 /* end reviews */
 
+/* start cancelSaveButtons */
+.flex{
+    display:flex;
+    flex-direction: row;
+}
+
+.cancelSaveButton{
+  cursor: pointer;
+  padding: .25em 1em;
+  border:1px solid var(--buttonHoverColor);
+  border-radius: var(--buttonBorderRadius);
+  text-align: center;
+  margin-right: .75em;
+  margin-top: .75em;
+  font-size: .75em;
+}
+.cancelSaveButton:hover {
+  background-color: var(--buttonHoverColor);
+  transform: scale(1.01);
+  box-shadow: -.25em .5em 1.25em 0em #111111;
+  transition: .5s;
+}
+
+/* start cancelSaveButtons */
 
 
 
@@ -227,7 +538,7 @@
 
 
 @media screen and (max-width: 950px) {
-    
+
     .container {
         flex-direction: column;
         min-width: 1em;
@@ -262,10 +573,7 @@
         margin-right: auto;
         margin-left: auto;
     }
-    
-    .reviewDetails{
-        width:auto;
-    }
+
     .ratings{
         font-size: .9em;
     }
@@ -286,7 +594,7 @@
 }
 
 @media screen and (max-width: 376px) {
-    
+
     .container {
         flex-direction: column;
         min-width: 1em;
@@ -321,10 +629,8 @@
         margin-right: auto;
         margin-left: auto;
     }
- 
-    .reviewDetails{
-        width:auto;
-    }
+
+
     .ratings{
         font-size: .66em;
     }
@@ -354,7 +660,7 @@
         padding-top: 1.1em;
         margin-left: -.8em;
     }
-    
+
     }
 
 @media screen and (max-width: 361px) {
@@ -376,7 +682,7 @@
     .placeImage{
         max-width: 4.25em;
         max-height: 4.25em;
-    
+
         height:4.25em;
         width:4.25em;
     }
