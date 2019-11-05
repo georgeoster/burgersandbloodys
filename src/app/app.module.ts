@@ -31,6 +31,7 @@ import { PlaceHeaderComponent } from './place-header/place-header.component';
 import { PlaceDetailsComponent } from './place-details/place-details.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
+import { EditPostComponent } from './edit-post/edit-post.component';
 
 
 
@@ -68,7 +69,8 @@ const approutes : Routes = [
     PlaceHeaderComponent,
     PlaceDetailsComponent,
     ProfileComponent,
-    DropdownComponent
+    DropdownComponent,
+    EditPostComponent
   ],
   imports: [
     BrowserModule,
