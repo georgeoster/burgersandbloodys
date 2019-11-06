@@ -22,7 +22,7 @@
     "@angular/router": "~7.2.0",
     "@types/googlemaps": "^3.30.16",
     "angularfire2": "^5.1.1",
-    "bootstrap": "^3.4.0",
+    "bootstrap": "^3.4.1",
     "bootstrap3": "^3.3.5",
     "core-js": "^2.5.4",
     "firebase": "^5.8.4",
