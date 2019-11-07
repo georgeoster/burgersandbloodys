@@ -1,250 +1,92 @@
-
-.container {
-    position: relative;
-    width:90%;
-    min-width: 45em;
-    max-width: 50em;
-    margin-right: auto;
-    margin-left: auto;
-    background-color:var(--buttonBackgroundColor);
-    color: var(--textColor);
+.container{
+    background-color: var(--buttonBackgroundColor);
+    padding-top : .75em;
+    padding-right : .75em;
+    padding-left : .75em;
     border-radius: 10px;
-    border:1px solid transparent;
-    margin-bottom: 2em;
+    font-size: 16px;
 }
 
-.title{
-    font-size: 1.5em;
-    margin-top: .5em;
-    margin-bottom: .5em;
-    margin-left: 1.5%;
-    padding-left: .25em;
+.place{
+    width:100%;
+    border-bottom: .1em solid var(--textColor);
+    text-align: left;
 }
 
-/* start reviews */
-.reviews{
-    border-top: 3px solid var(--textColor);
-    padding-top: 1em;
-    padding-bottom: .5em;
-    width:95%;
-    margin-right: auto;
-    margin-left: auto;
+/* start drops and words */
+.dropsAndWords{
+    margin-top: 1em;
     display: flex;
     flex-direction: row;
 }
 
-/* start user */
-.user{
-    width:7em;
-    min-width: 7em;
-    max-width: 7em;
+.drops{
+    height:2.33em;
+    width:8.23em;
+    margin-bottom: .75em;
+}
+
+.words{
+    margin-left: .75em;
+    height:auto;
+    width:98%;
+    border-radius: 5px;
+    resize: none;
+    background-color: #273247;
+    font-size: 1em;
+    color:var(--textColor);
+    border:none;
+    margin-bottom: .75em;
+    padding:.5em;
+}
+.words:focus{
+    outline: 0;
+}
+/* end drops and words */
+
+.button {
+    padding:1em;
+    font-size: 1em;
+    background-color: var(--buttonBackgroundColor);
+    color: var(--textColor);
+    border:2px solid var(--textColor);
+    border-radius: var(--buttonBorderRadius);
+    margin-bottom: .5em;
+
+    -webkit-transition:  .25s; /* Safari */
+    transition:  .25s;
+}
+
+.button:hover {
+    background-color: var(--buttonHoverColor);
+    transform: scale(1.01);
+    box-shadow: -.25em .5em 1.25em 0em #111111;
+    transition: .5s;
     cursor: pointer;
 }
-.user:focus{
-    outline:0;
-}
-.userImage{
-    max-width: 6em;
-    max-height: 6em;
-    border-radius: 7px;
 
-    height:6em;
-    width:6em;
-    overflow: hidden;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
+.button:focus {outline:0;}
 
-
-.containingDiv{
-    max-width: 6em;
-    max-height: 6em;
-    border-radius: 7px;
-
-    height:6em;
-    width:6em;
-}
-.containingDiv img {
-    max-width: 6em;
-    max-height: 6em;
-    margin-right: auto;
-    margin-left: auto;
-    border-radius: .5em;
-}
-.hide{
-    visibility: hidden;
-}
-
-
-
-.name{
-    max-width: 6em;
-    margin-top: .25em;
-    overflow-wrap: break-word;
-}
-.commentIcon{
-    margin-top: .25em;
-    background-image: url('../../assets/comment.png');
-    background-repeat: no-repeat;
-    height:1.5em;
-    padding-left: 2.5em;
-    padding-top: .5em;
-    font-size: .75em;
-}
-/* end user */
-
-/* start review details */
-.reviewDetails{
-    display:flex;
-    flex-direction: column;
-}
-
-/* start starsAndDate */
-.starsAndDate{
-    display:flex;
-    flex-direction: row;
-}
-.stars{
-    font-size: 1.75em;
-    pointer-events:none;
-    margin-left: -.5em;
-}
-.date{
-    padding-top: 1em;
-    font-size: 1em;
-    margin-left: -.75em;
-}
-/* end starsAndDate */
-
-.ratings{
-    display:flex;
-    flex-direction: row;
-    width:100%;
-    margin-top: .5em;
-    margin-bottom: .25em;
-    font-size: .95em;
-}
-
-.words{
-    margin-top: 1em;
-}
-
-/* end reviews */
-
-
-@media screen and (max-width: 730px) {
-    
+@media screen and (max-width: 800px) {
     .container {
-        width:100%;
-        min-width: 1em;
-        max-width: 500em;
-        border-radius: 0px;
-        border:1px solid transparent;
-        margin-bottom: -1em;
-        top:-1em;
-
+        top:5em;
     }
-
-    .stars{
-        font-size: 1.5em;
-    }
-    .date{
-        padding-top: .6em;
-        font-size: 1em;
-    }
-    .ratings{
-        font-size: .9em;
-    }
-
-}
-
-@media screen and (max-width: 415px) {
-    .date{
-        padding-top: .66em;
-        margin-left: -.5em;
-    }
-}
-
-@media screen and (max-width: 376px) {
-    .stars{
-        font-size: 1.25em;
-    }
-    .date{
-        padding-top: .75em;
-        font-size: .85em;
-    }
-    .ratings{
-        font-size: .85em;
-    }
+    
     .words{
-        font-size: .85em;
+       margin-left: 1em;
+       border: 3px solid #273247;
+    } 
+}
+ 
+@media screen and (max-width: 640px) {
+    .container {
+        background-color: var(--buttonBackgroundColor);
+        top:2em;
     }
 }
 
-@media screen and (max-width: 361px) {
-  
-    .date{
-        margin-left: -.5em;
-        padding-top: .7em;
-        font-size: .8em;
-    }
-    .ratings{
-        font-size: .8em;
-    }
-    .words{
-        font-size: .8em;
+@media screen and (max-width: 415px) and (orientation: portrait) {
+    .container{
+        top:3em;
     }
 }
-
-@media screen and (max-width: 321px) {
-    /* start user */
-.user{
-    width:6em;
-    min-width: 6em;
-    max-width: 6em;
-}
-.userImage{
-    max-width: 5em;
-    max-height: 5em;
-    height:5em;
-    width:5em;
-}
-
-
-.containingDiv{
-    max-width: 5em;
-    max-height: 5em;
-    height:5em;
-    width:5em;
-}
-.containingDiv img {
-    max-width: 5em;
-    max-height: 5em;
-}
-
-.name{
-    max-width: 5em;
-    margin-top: .25em;
-    font-size: 10px !important;
-}
-.commentIcon{
-    margin-top: .25em;
-    background-image: url('../../assets/commentSmall.png');
-    background-repeat: no-repeat;
-    height:1.5em;
-    padding-left: 1.7em;
-    padding-top: .25em;
-    font-size: 10px !important;
-}
-.words{
-    margin-top: .75em;
-    font-size: .75em;
-}
-.ratings{
-    font-size: .7em;
-}
-}
-
-
-

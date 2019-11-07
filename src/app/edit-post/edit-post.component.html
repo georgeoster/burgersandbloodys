@@ -1,1 +1,25 @@
-edit post works
+
+<div class="container">
+    
+    <!-- NAME OF RESTAURANT -->
+    <div class="place" > {{review.place}}  </div>
+    
+    <div class="dropsAndWords">
+        
+        <!--DROPDOWNS-->
+        <div>
+            <div class="drops" *ngFor="let thing of thingsToRate" >  
+                <app-dropdown [rating]="getRatingFor(thing)" [item]="thing" (ratingClick)='dropdownReceiver($event)' ></app-dropdown>  
+            </div>
+        </div>
+
+        <!-- COMMENTS-->
+        <textarea id="words" class="words" [(ngModel)]="review.words" placeholder = "Comments" onfocus="this.placeholder=''"></textarea> 
+    </div>
+        
+    <div class="button" (click)="saveHandler()">Save</div>
+    <div class="button" (click)="cancelHandler()">Cancel</div>
+
+</div>
+
+

@@ -52,7 +52,7 @@
   opacity:.85;
 }
 
-.editDeletePositioning{
+.modalPositioning{
   position: fixed;
   top:25%;
   left: 50%;
@@ -61,7 +61,7 @@
 
 .editReviewDialog{
   width:80%;
-  max-width: 20em;
+  max-width: 30em;
   background-color: var(--buttonBackgroundColor);
   color: var(--textColor);
   border:2px solid var(--textColor);

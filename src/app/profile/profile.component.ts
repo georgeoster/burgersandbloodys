@@ -182,17 +182,6 @@ export class ProfileComponent implements OnInit {
 
     review.showEditDelete = false ;
 
-
-    // review.editMode = !review.editMode;
-    // review.showEditDelete = false;
-
-    // if ( i !== -1 ){ // -1 is key for "do not mess with contenteditable"
-    //   let myElement = document.getElementById('words' +i);
-    //   console.log(myElement);
-    //   myElement.setAttribute('contenteditable', 'true');
-    //   myElement.classList.add("editwords");
-    // }
-
   }
 
   cancelEditHandler(review: any, i: number){
@@ -204,28 +193,24 @@ export class ProfileComponent implements OnInit {
     myElement.innerText = review.words;
   }
 
-  saveHandler( review: any, i: number ){
-
-    let myElement = document.getElementById('words' + i);
-    console.log(myElement);
-    let updatedWords =  myElement.innerText;
-    myElement.removeAttribute('contenteditable');
-    myElement.classList.remove('editwords');
-
+  saveHandler( review:any ){
+    
     let toUpdate = firebase.firestore().collection('reviews').doc(review.id);
     toUpdate.update({
-      words: updatedWords
+      words:  review.words,
+      burger: review.burger,
+      bloody: review.bloody,
+      beers: review.beers,
+      benny: review.benny
     })
     .then(() => {
-      this.editModeToggle( review, -1); // pass -1 as special key for "do not mess with contenteditable"
-        console.log("Document successfully updated!");
+      this.showEditPost = false;  
+      console.log("Document successfully updated!");
     })
     .catch(function(error) {
         // The document probably doesn't exist.
         console.error("Error updating document: ", error);
     });
-
-
   }
 
   deleteHandler( /*review:any*/ ){
@@ -253,9 +238,10 @@ export class ProfileComponent implements OnInit {
     console.log('this.toDelete:'); console.log(this.toDelete); console.log('this.showDeletedConfirm:'); console.log(this.showDeleteConfirm);
   }
 
-  cancelHandler(){
+  cancelHandler(){ // called by cancel button in delete modal and edit modal, since they both need to do the same thing
     this.showDeleteConfirm = false;
     this.toDelete = null;
+    this.showEditPost = false; 
   }
 
 

@@ -1,5 +1,5 @@
 
-<div class="editDeletePositioning confirmDeleteMessage visibilityHidden" [ngClass]="showDeleteConfirm? 'visibilityVisible' : ''">
+<div class="modalPositioning confirmDeleteMessage visibilityHidden" [ngClass]="showDeleteConfirm? 'visibilityVisible' : ''">
   Are you sure you want to delete this?
   <div class="confirmDialogButtonsContainer">
     <div class="confirmDialogButtons"  (click)="deleteHandler()" >Delete</div>
@@ -7,8 +7,8 @@
   </div>
 </div>
 
-<div class="editDeletePositioning editReviewDialog visibilityHidden" [ngClass]="showEditPost? 'visibilityVisible' : ''" >
-  <app-edit-post [review] = "toEdit" ></app-edit-post>
+<div class="modalPositioning editReviewDialog visibilityHidden" [ngClass]="showEditPost? 'visibilityVisible' : ''" >
+  <app-edit-post [review] = "toEdit"  (saveEmitter)='saveHandler($event)' (cancelEmitter)='cancelHandler($event)'  ></app-edit-post>
 </div>
 
 <!-- HIDDEN INPUT -->
