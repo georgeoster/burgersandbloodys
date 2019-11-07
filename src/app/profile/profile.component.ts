@@ -23,7 +23,8 @@ export class ProfileComponent implements OnInit {
   user;
 
   @HostListener('document:click', ['$event'])
-    documentClick(event: MouseEvent) {
+    // documentClick(event: MouseEvent) {
+    documentClick(event: any) {
       console.log(event);
         if ( !event.srcElement.attributes.class || event.srcElement.attributes.class.value !=  'verticalMenuIcon' ){
           for (let review of this.reviews){
@@ -179,6 +180,8 @@ export class ProfileComponent implements OnInit {
 
     this.showEditPost = true;
 
+    review.showEditDelete = false ;
+
 
     // review.editMode = !review.editMode;
     // review.showEditDelete = false;
@@ -246,6 +249,7 @@ export class ProfileComponent implements OnInit {
   openDeleteConfirm(review: any){
     this.toDelete = review;
     this.showDeleteConfirm = true;
+    review.showEditDelete = false ;
     console.log('this.toDelete:'); console.log(this.toDelete); console.log('this.showDeletedConfirm:'); console.log(this.showDeleteConfirm);
   }
 
