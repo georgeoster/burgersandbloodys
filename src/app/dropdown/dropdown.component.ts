@@ -11,20 +11,20 @@ export class DropdownComponent implements OnInit {
 
   @Input() item: string;
   options:[1,2,3,4,5];
-  rating:number;
+  @Input() rating:number;
   @Output() ratingClick: EventEmitter<any> = new EventEmitter<any>();
 
   picklistMenuExpand:boolean;
 
-  constructor(private dropdownservice: DropdownService) { 
+  constructor(private dropdownservice: DropdownService) {
     this.picklistMenuExpand = false;
     this.options=[1,2,3,4,5];
 
-    this.dropdownservice.otherDropdownOpen.subscribe( 
+    this.dropdownservice.otherDropdownOpen.subscribe(
       (dropdownOpen) => {
         if ( dropdownOpen['item']  != this.item ) this.picklistMenuExpand = false;
 
-      } 
+      }
     );
 
   }
@@ -51,6 +51,6 @@ export class DropdownComponent implements OnInit {
 
   }
 
-  
+
 
 }
