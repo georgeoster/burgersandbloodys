@@ -1,86 +1,32 @@
-
-<div class="modalPositioning confirmDeleteMessage visibilityHidden" [ngClass]="showDeleteConfirm? 'visibilityVisible' : ''">
-  Are you sure you want to delete this?
-  <div class="confirmDialogButtonsContainer">
-    <div class="confirmDialogButtons"  (click)="deleteHandler()" >Delete</div>
-    <div class="confirmDialogButtons" (click)="cancelHandler()" >Cancel</div>
-  </div>
-</div>
-
-<div class="modalPositioning editReviewDialog visibilityHidden" [ngClass]="showEditPost? 'visibilityVisible' : ''" >
-  <app-edit-post [review] = "toEdit"  (saveEmitter)='saveHandler($event)' (cancelEmitter)='cancelHandler()'  ></app-edit-post>
-</div>
-
 <!-- HIDDEN INPUT -->
 <input type="file" name="file" id="file" class="inputfile" class="hiddenInput" #george (change)="upload(george)" />
 
 <!-- CONTAINER-->
 <div class="container"  [ngClass]="reviews.length === 0 ? 'containerNoReviews' : ''" >
+
   <!-- OVERLAY SCREEN FOR DIALOGS -->
-  <div class="confirmDialog visibilityHidden" [ngClass]="showDeleteConfirm || showEditPost? 'visibilityVisible' : ''">  </div>
+  <!-- <div class="confirmDialog visibilityHidden" [ngClass]="showDeleteConfirm || showEditPost? 'visibilityVisible' : ''">  </div> -->
 
   <!--  PICTURE AND CHANGE PICTURE BUTTON -->
   <div class="picture">
     <div class="displayNameTop">{{userDisplayName}}</div>
     <div class="containingDiv" [ngClass]="userImage ? '' : 'hide'"> <img [src]="userImage"> </div>
     <div class="displayNameBottom">{{userDisplayName}}</div>
-    <label for="file" class="button" [ngClass]="showChangePicture ? '' : 'hide'"> {{userImage ? 'Change' : 'Upload' }} Picture</label>
+    <label for="file" class="button" [ngClass]="isCurrentUser ? '' : 'hide'"> {{userImage ? 'Change' : 'Upload' }} Picture</label>
   </div>
 
   <!-- REVIEW -->
   <div class="reviews" [ngClass]="reviews.length === 0 ? 'noReviews' : ''" >
+
     <!-- TITLE -->
     <div class="title">Ratings</div>
 
     <!-- LOOP OF REVIEWS-->
-    <div class="review" *ngFor="let review of reviews; let i = index;">
-
-      <!-- PLACE PICTURE AND NAME-->
-      <div class="place" routerLink = "../../place/{{review.placeId}}">
-        <div [style.backgroundImage]="'url('+ review.image1 +')'" class="placeImage"></div>
-        <div class="name">{{review.place}}</div>
-      </div>
-
-      <!-- PLACE STARS, DATE, AND EDIT/DELETE MENU -->
-      <div class="reviewDetails">
-        <div class="starsAndDate">
-          <!-- STARS AND DATE -->
-          <div class="stars"><app-rating [rating]="review.overallRating" ></app-rating> </div>
-          <div class="date">{{review.reviewDate}}</div>
-          <!-- TRIPLE DOT MENU -->
-          <div class="verticalMenuIcon" [ngClass]="showChangePicture ? '' : 'hide'" (click)="showEditDelete(review)">
-              <span class="tooltiptext">edit or delete<br>this rating</span>
-          </div>
-          <!-- EDIT / DELETE MENU -->
-          <div class="editDeleteContainerAnchor">
-            <div class="editDeleteContainer" [ngClass]="review.showEditDelete ? 'show' : ''" >
-              <div (click)="editModeToggle(review,i)"   class="flex editDeleteRow"><img src="../../assets/edit.png"   class="editDeleteIcons"><div style="margin-top: .2em;">Edit</div> </div>
-              <div (click)="openDeleteConfirm(review)"  class="flex editDeleteRow"><img src="../../assets/trash.png"  class="editDeleteIcons"><div style="margin-top: .2em;">Delete</div> </div>
-            </div>
-          </div>
-        </div>
-        <!-- BURGERS, BLOODYS, ETC RATING-->
-        <div class="ratings">
-          <div [ngClass]="review.burger == ''  ? 'hide' : 'show'" >Burger {{review.burger}}</div>
-          <div class="spacer"   [ngClass]="review.burger != '' && (review.benny != '' || review.bloody !='' || review.beers != '' )  ? '' : 'hide'" > &#183; </div>
-          <div [ngClass]="review.benny == ''  ? 'hide' : 'show'" >Benny {{review.benny}}</div>
-          <div class="spacer"   [ngClass]="review.benny != '' && (review.bloody !='' || review.beers != '' ) ? '' : 'hide'" > &#183; </div>
-          <div [ngClass]="review.bloody == ''  ? 'hide' : 'show'" >Bloody {{review.bloody}}</div>
-          <div class="spacer"   [ngClass]="review.bloody != '' && review.beers != ''  ? '' : 'hide'" > &#183; </div>
-          <div [ngClass]="review.beers == ''  ? 'hide' : 'show'" >Beers {{review.beers}}</div>
-        </div>
-        <!-- RATING WORDS-->
-        <div id="words{{i}}" class="words" [textContent]="review.words"></div>
-      </div>
+    <div *ngFor="let review of reviews; let i = index;">
+      <app-review [review] = "review" [isCurrentUser]="isCurrentUser" (deletedIdEmitter)="deleteHandler($event)" ></app-review>
     </div>
+
   </div>
+
 </div>
 <div id="map"></div>
-
- <!-- SAVE / CANCEL BUTTONS -->
- <!-- <div [ngClass]="!review.editMode ? '' : 'hide'" >
-    <div class="flex">
-      <div class="cancelSaveButton" (click)="saveHandler(review,i)">Save</div>
-      <div class="cancelSaveButton" (click)="cancelEditHandler(review,i)" >Cancel</div>
-    </div>
-  </div> -->

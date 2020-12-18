@@ -19,19 +19,16 @@ export class ProfileComponent implements OnInit {
   userEmail: string;
   userDisplayName: string;
   userImage: string;
-  showChangePicture: boolean;
+  isCurrentUser: boolean;
   user;
 
-  @HostListener('document:click', ['$event'])
-    // documentClick(event: MouseEvent) {
-    documentClick(event: any) {
-      console.log(event);
-        if ( !event.srcElement.attributes.class || event.srcElement.attributes.class.value !=  'verticalMenuIcon' ){
-          for (let review of this.reviews){
-            review.showEditDelete = false ;
-          }
-        }
+  @HostListener('document:click', ['$event']) documentClick(event: any) {
+    if ( !event.srcElement.attributes.class || event.srcElement.attributes.class.value !=  'verticalMenuIcon' ){
+      for (let review of this.reviews){
+        review.showEditDelete = false ;
+      }
     }
+  }
 
   constructor( private readonly route: ActivatedRoute, private readonly router: Router) {
     this.showDeleteConfirm = false;
@@ -39,15 +36,6 @@ export class ProfileComponent implements OnInit {
     this.reviews = [];
     this.thingsToRate = ['Burger', 'Benny'];
   }
-
-  dropdownReceiver(clickObj : any, review: any){
-    if (clickObj.item === 'Burger') review.burger = clickObj.rating;
-    if (clickObj.item === 'Bloody') review.bloody = clickObj.rating;
-    if (clickObj.item === 'Benny') review.benny = clickObj.rating;
-    if (clickObj.item === 'Beers') review.beers = clickObj.rating;
-    console.log('the review is now:');
-    console.log(review);
-}
 
   loadUser(){
     this.reviews = [];
@@ -71,10 +59,10 @@ export class ProfileComponent implements OnInit {
     });
 
     this.user = firebase.auth().currentUser;
-    this.showChangePicture = false;
+    this.isCurrentUser = false;
 
     if ( this.user && this.user.email === this.userEmail){
-      this.showChangePicture = true;
+      this.isCurrentUser = true;
     }
 
     this.reviews.sort(
@@ -117,7 +105,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
 
-    this.showChangePicture = false;
+    this.isCurrentUser = false;
 
     this.route.params.subscribe(params => {
       this.userEmail = params['email']; //.get("email");
@@ -162,88 +150,16 @@ export class ProfileComponent implements OnInit {
     .then(
       ( querySnapshot ) => {
         querySnapshot.forEach( (doc) => {
-            firebase.firestore().collection("reviews").doc(doc.id).update({userImageURL : this.user.photoURL});
-            }
-          );
-        }
-      );
-    }
-
-
-  showEditDelete(review: any){
-    review.showEditDelete = !review.showEditDelete;
+          firebase.firestore().collection("reviews").doc(doc.id).update({userImageURL : this.user.photoURL});
+          }
+        );
+      }
+    );
   }
 
-  editModeToggle( review: any, i: number ){
-
-    this.toEdit = review;
-
-    this.showEditPost = true;
-
-    review.showEditDelete = false ;
-
+  deleteHandler( id:String ){
+    this.reviews = this.reviews.filter( r =>  r.id !== id );
   }
-
-  cancelEditHandler(review: any, i: number){
-    review.editMode = !review.editMode;
-    review.showEditDelete = false;
-    let myElement = document.getElementById('words' + i);
-    myElement.removeAttribute('contenteditable');
-    myElement.classList.remove('editwords');
-    myElement.innerText = review.words;
-  }
-
-  saveHandler( review:any ){
-    
-    let toUpdate = firebase.firestore().collection('reviews').doc(review.id);
-    toUpdate.update({
-      words:  review.words,
-      burger: review.burger,
-      bloody: review.bloody,
-      beers: review.beers,
-      benny: review.benny
-    })
-    .then(() => {
-      this.showEditPost = false;  
-      console.log("Document successfully updated!");
-    })
-    .catch(function(error) {
-        // The document probably doesn't exist.
-        console.error("Error updating document: ", error);
-    });
-  }
-
-  deleteHandler( /*review:any*/ ){
-
-    this.showDeleteConfirm = false;
-    // firebase.firestore().collection('reviews').doc(review.id).delete()
-    firebase.firestore().collection('reviews').doc(this.toDelete.id).delete()
-
-    .then(() => {
-      this.reviews = this.reviews.filter( r =>  r.id !== this.toDelete.id );
-        console.log('Document successfully deleted!');
-    })
-    .catch(function(error) {
-        // The document probably doesn't exist.
-        console.error('Error deleting document: ', error);
-    });
-
-
-  }
-
-  openDeleteConfirm(review: any){
-    this.toDelete = review;
-    this.showDeleteConfirm = true;
-    review.showEditDelete = false ;
-    console.log('this.toDelete:'); console.log(this.toDelete); console.log('this.showDeletedConfirm:'); console.log(this.showDeleteConfirm);
-  }
-
-  cancelHandler(){ // called by cancel button in delete modal and edit modal, since they both need to do the same thing
-    this.showDeleteConfirm = false;
-    this.toDelete = null;
-    this.showEditPost = false; 
-  }
-
 
   upload( imageInput: any ){
 

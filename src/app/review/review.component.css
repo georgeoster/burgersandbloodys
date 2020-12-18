@@ -1,0 +1,370 @@
+
+
+.spacer{
+  margin-right: .75em;
+  margin-left:  .75em;
+}
+
+.visibilityHidden{
+  display:none;
+}
+
+.visibilityVisible{
+  display:block !important;
+}
+
+.screen{
+  display: none;
+  position: absolute;
+  top:0;
+  right:0;
+  height:100%;
+  width:100%;
+  background-color: black;
+  z-index:500;
+  opacity:.85;
+}
+
+.modalPositioning{
+  position: relative;
+    margin: 0 auto;
+    top: 5%;
+}
+
+.editReviewDialog{
+  width:80%;
+  max-width: 30em;
+  background-color: var(--buttonBackgroundColor);
+  color: var(--textColor);
+  border:2px solid var(--textColor);
+  border-radius: var(--buttonBorderRadius);
+  z-index:501;
+  font-size: 1.25em;
+  text-align: center;
+  padding-top: .5em;
+  padding-bottom: .5em;
+}
+
+.confirmDeleteMessage{
+  width:80%;
+  max-width: 20em;
+  background-color: #2d3f61;
+  color: var(--textColor);
+  border:2px solid var(--textColor);
+  border-radius: var(--buttonBorderRadius);
+  z-index:501;
+  font-size: 1.25em;
+  text-align: center;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.confirmDialogButtonsContainer{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: .75em;
+}
+
+.confirmDialogButtons {
+  padding: .5em 1em;
+  font-size: 1em;
+  background-color: var(--buttonBackgroundColor);
+  color: var(--textColor);
+  margin-right: .25em;
+  margin-left: .25em;
+
+  border:2px solid var(--buttonHoverColor);
+  border-radius: var(--buttonBorderRadius);
+  text-align: center;
+  cursor: pointer;
+}
+.confirmDialogButtons:hover {
+  background-color: var(--buttonHoverColor);
+  transform: scale(1.01);
+  box-shadow: -.25em .5em 1.25em 0em #111111;
+  transition: .5s;
+}
+.confirmDialogButtons:focus {
+  outline:0;
+}
+
+
+.hide{
+  display: none !important;
+}
+
+/* start reviews */
+.review{
+  border-bottom: 3px solid var(--textColor);
+  padding-top: 1em;
+  padding-bottom: .5em;
+  width:100%;
+  min-width: 260px;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+}
+
+/* start place */
+.place{
+  width:7em;
+  min-width: 7em;
+  max-width: 7em;
+  cursor: pointer;
+}
+.place:focus{
+  outline: 0;
+}
+.placeImage{
+  max-width: 6em;
+  max-height: 6em;
+  border-radius: 7px;
+
+  height:6em;
+  width:6em;
+  overflow: hidden;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.placeImage:focus{
+  outline: 0;
+}
+.name{
+  margin-top: .25em;
+  font-size: 1em;
+  max-width: 6em;
+  overflow-wrap: break-word;
+}
+/* end place */
+
+/* start review details */
+.reviewDetails{
+  display:flex;
+  flex-direction: column;
+  width:100%;
+  min-width: 182px;
+}
+
+/* start starsAndDate */
+.starsAndDate{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width:100%;
+  position: relative;
+  padding-left: .6em;
+}
+.stars{
+  pointer-events:none;
+  margin-left: -.75em;
+  margin-top: .3em;
+}
+.date{
+  padding-top: .75em;
+  font-size: .75em;
+}
+.verticalMenuIcon{
+  height:1.5em;
+  cursor: pointer;
+}
+
+.tooltiptext {
+  white-space: nowrap;
+  background-color: var(--textColor);
+  color:  var(--buttonBackgroundColor);
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: -20%;
+  margin-left: -40px;
+  opacity: 0;
+  transition: opacity .25s ease-in;
+}
+.tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 75%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--textColor) transparent transparent transparent;
+}
+.verticalMenuIcon:hover .tooltiptext {
+  opacity: 100;
+}
+
+.editDeleteContainerAnchor{
+  position: absolute;
+  right:-5px;
+  bottom:0px;
+}
+
+.editDeleteContainer {
+  visibility: hidden;
+
+  white-space: nowrap;
+  border-radius: 3px;
+  background-color: var(--buttonHoverColor);
+  color:  var(--textColor);
+  padding: .33em .2em;
+  position: absolute;
+  z-index: 1;
+
+  cursor: pointer;
+  top: .5em;
+  right: -.1em;
+
+  margin-left: -40px;
+  border:1.25px solid var(--textColor);
+  font-size: 1em;
+  opacity: 0;
+  transition: opacity .5s ease-in;
+}
+
+.editDeleteContainer::after {
+  content: "";
+  position: absolute;
+  bottom: 94%;
+  left: 86%;
+  margin-left: -5px;
+  width:.45em; height:.45em;
+  transform:rotate(45deg);
+  background-color: inherit;
+  border-top: 1.25px solid var(--textColor);
+  border-left: 1.25px solid var(--textColor);
+  border-radius: 1px;
+}
+.show{
+    visibility: visible;
+    opacity: 100;
+}
+.editDeleteRow{
+  padding-right: .66em;
+  padding-left: .66em;
+}
+.editDeleteRow:hover{
+  background-color: #2b3a5c;
+}
+
+.editIcon{
+  background-image: url('../../assets/edit.png');
+  background-repeat: no-repeat;
+  background-size: 20%;
+  background-position: .5em .65em;
+  height:1.5em;
+  padding-left: 1.66em;
+  padding-top: .5em;
+  border:1px solid pink;
+
+}
+.verticalMenuIcon:hover{
+  cursor: pointer;
+}
+
+.editDeleteIcons{
+  height: 1.25em;
+  margin-right: .25em;
+}
+/* end starsAndDate */
+
+.ratings{
+  display:flex;
+  flex-direction: row;
+  width:100%;
+  margin-top: .5em;
+  margin-bottom: .25em;
+  font-size: .95em;
+  padding-left: .5em;
+}
+
+.words{
+  margin-top: .25em;
+  padding-top: .25em;
+  padding-left: .5em;
+  background: transparent;
+  border:none;
+  resize: none;
+  color:var(--textColor);
+  font-size: .95em;
+  height:100%;
+  width:97%;
+}
+
+.editwords{
+  border-radius: 5px;
+  resize: none;
+  background-color: #273247;
+  color:var(--textColor);
+  border:1px solid var(--textColor);
+  cursor: pointer;
+}
+.words:focus{
+  outline: 0;
+}
+
+/* end reviews */
+
+.flex{
+  display:flex;
+  flex-direction: row;
+}
+
+
+
+@media screen and (max-width: 485px) {
+  .ratings{
+    font-size: .75em;
+  }
+}
+
+@media screen and (max-width: 415px) {
+  .ratings{
+    font-size: .66em;
+  }
+}
+
+@media screen and (max-width: 380px) {
+
+  .ratings{
+    font-size: .5em;
+  }
+
+  .words{
+    font-size: .7em !important;
+  }
+
+  .name{
+    font-size: .75em;
+  }
+
+}
+
+@media screen and (max-width: 361px) {
+
+  .place{
+    width:4.75em;
+    min-width: 4.75em;
+    max-width: 4.75em;
+  }
+
+  .placeImage{
+    max-width: 4.25em;
+    max-height: 4.25em;
+    height:4.25em;
+    width:4.25em;
+  }
+
+  .name{
+    max-width: 4em;
+    font-size: .75em;
+    overflow-wrap: break-word;
+  }
+
+}
